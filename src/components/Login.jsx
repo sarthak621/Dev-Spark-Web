@@ -13,6 +13,8 @@ const Login = () => {
   const dispatch=useDispatch()
   const navigate= useNavigate()
 
+  const [error,setError]= useState("")
+
 
   const handleLogin=async()=>{
           try{
@@ -21,13 +23,13 @@ const Login = () => {
             password
             },
           {withCredentials:true})
-          console.log(res.data)
+          // console.log(res.data)
           dispatch(addUser(res.data)); //dispatch the add user
           return navigate("/feed")
 
           }
           catch(err){
-            console.log(err)
+            setError(err.response.data || "Something Went Wrong")
           }
   }
 
@@ -61,8 +63,11 @@ const Login = () => {
               value={password}
               onChange={(e)=> setPassword(e.target.value)}
             />
+            
+            <p className="text-red-500 font-bold mt-1">{error}</p>
           </label>
-
+           
+           
           <div className="card-actions justify-center m-2">
             <button className="btn btn-primary" onClick={handleLogin}>Login</button>
           </div>
