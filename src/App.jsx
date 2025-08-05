@@ -1,15 +1,17 @@
 import { BrowserRouter , Route , Routes } from 'react-router-dom'
 import './App.css'
-import Body from './Body'
-import Login from './Login'
-import Profile from './Profile'
+import Body from './components/Body'
+import Login from './components/Login'
+import Profile from './components/Profile'
+import { Provider } from 'react-redux'
+import appStore from './utils/appStore'
 
 function App() {
  
 
   return (
     <>
-      
+     <Provider store={appStore}>
       {/* creating the browser router > routes > route and making children */}
       <BrowserRouter>
         <Routes>
@@ -19,6 +21,8 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+
+     </Provider>
       
     
     </>
