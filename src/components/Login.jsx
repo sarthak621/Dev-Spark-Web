@@ -16,14 +16,14 @@ const Login = () => {
 
   const handleLogin=async()=>{
           try{
-            const res= await axios.post(BASE_URL+ "/login",{
+            const res= await axios.post(BASE_URL+ "/user/login",{
             email,
             password
             },
           {withCredentials:true})
           console.log(res.data)
           dispatch(addUser(res.data)); //dispatch the add user
-          return navigate("/")
+          return navigate("/feed")
 
           }
           catch(err){
