@@ -43,7 +43,7 @@ const Body = () => {
 
          
    return (
-     <>
+     <div className="min-h-screen flex flex-col">
          {/* navbar always stick to the top */}
         <Navbar/>  
         {/* adding outlet to render children components */}
@@ -53,7 +53,7 @@ const Body = () => {
         <Footer/>
         
         
-     </>
+     </div>
   )
 }
 
