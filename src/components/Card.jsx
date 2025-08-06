@@ -2,7 +2,7 @@ import React from 'react'
 
 const Card = ({user}) => {
     // console.log(user)
-    const {_id,firstName,lastName, profileUrl, age ,gender ,about}= user;
+    const {firstName,lastName, profileUrl, age ,gender ,about}= user;
   return (
     <div className="card bg-base-300 w-96 shadow-sm ">
   <figure>
