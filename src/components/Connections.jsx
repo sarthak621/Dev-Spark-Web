@@ -5,60 +5,68 @@ import { BASE_URL } from '../utils/constants'
 import { addConnection } from '../utils/connectionSlice'
 
 const Connections = () => {
+  const connections = useSelector((store) => store.connections)
+  const dispatch = useDispatch()
 
-  const connections=useSelector((store)=>store.connections)
-  const dispatch=useDispatch()
-
-  const fetchConnections= async ()=>{
-    try{
-       const res= await axios.get(BASE_URL+"/user/connection" , {withCredentials:true});
-    //    console.log(res)
-       dispatch(addConnection(res.data.data))
-
-    }
-    catch(err){
-       console.error(err)
+  const fetchConnections = async () => {
+    try {
+      const res = await axios.get(BASE_URL + "/user/connection", {
+        withCredentials: true,
+      })
+      dispatch(addConnection(res.data.data))
+    } catch (err) {
+      console.error(err)
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchConnections()
-  },[])
+  }, [])
 
-    if (!connections) return;
+  if (!connections) return 
 
-    if (connections.length === 0) return <h1 className='flex justify-center my-10'> No Connections Found</h1>;
+  if (connections.length === 0)
+    return (
+      <h1 className="flex justify-center my-10 text-white text-xl">
+        No Connections Found
+      </h1>
+    )
 
   return (
-    <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Connections</h1>
+    <div className="my-10 px-4">
+      <h1 className="text-white text-3xl font-bold text-center mb-8">
+        Connections
+      </h1>
 
-      {connections.map((connection) => {
-        const { _id, firstName, lastName, profileUrl, age, gender, about } = connection;
+      <div className="flex flex-col gap-6 max-w-3xl mx-auto">
+        {connections.map((connection) => {
+          const { _id, firstName, lastName, profileUrl, age, gender, about } = connection
 
-        return (
-          <div
-            key={_id}
-            className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
-          >
-            <div>
+          return (
+            <div
+              key={_id}
+              className="flex flex-col sm:flex-row items-center sm:items-start bg-base-300 rounded-xl shadow-md p-5 gap-4"
+            >
               <img
-                alt="photo"
-                className="w-20 h-20 rounded-full object-cover"
+                alt="Profile"
+                className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
                 src={profileUrl}
               />
+
+              <div className="text-center sm:text-left">
+                <h2 className="text-xl font-semibold text-white">
+                  {firstName} {lastName}
+                </h2>
+                {age && gender && (
+                  <p className="text-sm text-gray-400">{age}, {gender}</p>
+                )}
+                <p className="mt-2 text-gray-300">{about}</p>
+              </div>
             </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>      
+          )
+        })}
+      </div>
+    </div>
   )
 }
 

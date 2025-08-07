@@ -49,39 +49,48 @@ const Requests = () => {
 
         return (
           <div
-            key={_id}
-            className=" flex justify-between items-center m-4 p-4 rounded-lg bg-base-300  mx-auto"
-          >
-            <div>
-              <img
-                alt="photo"
-                className="w-20 h-20 rounded-full"
-                src={profileUrl}
-              />
-            </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-            </div>
-            <div>
-              <button
-                className="btn btn-primary mx-2"
-                onClick={()=>reviewRequest("rejected",request._id)}
-              >
-                Reject
-              </button>
-              <button
-                className="btn btn-secondary mx-2"
-                onClick={()=>reviewRequest("accepted",request._id)}
-              >
-                Accept
-              </button>
-            </div>
-          </div>
+  key={_id}
+  className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 p-4 rounded-lg bg-base-300 mx-2 sm:mx-4 my-4 shadow-md hover:shadow-lg transition-shadow duration-200"
+>
+  
+  <img
+    alt="profile"
+    className="w-24 h-24 rounded-full object-cover"
+    src={profileUrl || "/default-avatar.png"}
+  />
+
+  
+  <div className="flex-1 text-center sm:text-left">
+    <h2 className="font-bold text-xl">
+      {firstName + " " + lastName}
+    </h2>
+    {age && gender && (
+      <p className="text-sm text-gray-400">{age + ", " + gender}</p>
+    )}
+    {about && <p className="text-sm mt-1">{about}</p>}
+  </div>
+
+  
+  <div className="flex gap-2 justify-center sm:justify-end my-7">
+    <button
+      className="btn btn-primary"
+      onClick={() => reviewRequest("rejected", request._id)}
+    >
+      Reject
+    </button>
+    <button
+      className="btn btn-secondary"
+      onClick={() => reviewRequest("accepted", request._id)}
+    >
+      Accept
+    </button>
+  </div>
+</div>
+
         );
+
+        
+
       })}
      </div>
   )
